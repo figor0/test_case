@@ -19,16 +19,14 @@ std::ostream& operator<<(std::ostream& stream, const std::pair<First, Second>& v
 template <template<typename> typename Container, typename Item>
 std::ostream& operator<<(std::ostream& stream, const Container<Item>& container)
 {
-	for (auto it = container.begin(); it != container.end(); it++){
-		stream << *it;
-		if ( next(it) != container.end()){
-			if ( next(it)->second == it->second ){
-				stream << ", ";
-			} else{
-				stream << " ";
-			}
-		}
+	if (container.empty())
+		return stream;
+	auto preend_it = prev(container.end());
+	for (auto it = container.begin(); it != preend_it; it++)
+	{
+		stream << *it << ", ";
 	}
+	stream << *preend_it;
 	return stream;
 }
 
@@ -36,12 +34,9 @@ template <typename Container>
 void filtering(Container& container, const int n)
 {
 	int counter = n - 1;
-	if ( container.empty())
+	if ( container.empty() || container.size() == 1)
 		return;
-	else if (container.size() == 1){
-		return;
-	}
-	for (auto it = next(container.begin()); next(it) != container.end(); it++ ){
+	for (auto it = next(container.begin()); it != prev(container.end()); it++ ){
 		if ( it->second == prev(it)->second){
 			counter--;
 			if ( counter != 0 && it->second == next(it)->second){
@@ -53,6 +48,7 @@ void filtering(Container& container, const int n)
 		}
 	}
 }
+
 
 template <typename Container>
 Container copy_filter(const Container& container, const int n){

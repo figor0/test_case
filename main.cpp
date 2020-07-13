@@ -4,7 +4,8 @@
 #include <algorithm>
 #include <list>
 
-#include <filter.h>
+#include <filter.hpp>
+
 
 int main()
 {

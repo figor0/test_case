@@ -1,13 +1,24 @@
-#include <profile.h>
-#include <test_runner.h>
-#include <filter.h>
+#include <profile.hpp>
+#include <test_runner.hpp>
+#include <filter.hpp>
 
 void filtering_test()
 {
 	{
-	 sequence example = {{1, 10}, {2, 11}, {3, 11}, {4, 11}, {5, 11}, {6, 10}, {7, 11}, {8, 11}, {9, 11}, {10, 11}, {11, 10}};
-	 sequence n3Right = {{1, 10}, {2, 11}, {4, 11}, {5, 11}, {6, 10}, {7, 11}, {9, 11}, {10, 11}, {11, 10}};
-	 sequence n4Right = {{1, 10}, {2, 11}, {5, 11}, {6, 10}, {7, 11}, {10, 11}, {11, 10}};
+	 sequence example = {
+							{1, 10}, {2, 11}, {3, 11}, {4, 11},
+							{5, 11}, {6, 10}, {7, 11}, {8, 11},
+							{9, 11}, {10, 11}, {11, 10}
+						};
+	 sequence n3Right = {
+							{1, 10}, {2, 11}, {4, 11}, {5, 11},
+							{6, 10}, {7, 11}, {9, 11}, {10, 11},
+							{11, 10}
+						};
+	 sequence n4Right = {
+							{1, 10}, {2, 11}, {5, 11}, {6, 10},
+							{7, 11}, {10, 11}, {11, 10}
+						};
 	 ASSERT( n3Right == copy_filter(example, 3))
 	 ASSERT( n4Right == copy_filter(example, 4))
 	}
@@ -39,8 +50,17 @@ void run_tests()
 
 void profileRunner()
 {
-	sequence input = {{1, 10}, {2, 11}, {3, 11}, {4, 11}, {5, 11}, {6, 10}, {7, 11}, {8, 11}, {9, 11}, {10, 11}, {11, 10}};
-	list<pair<x, y>> input_list = {{1, 10}, {2, 11}, {3, 11}, {4, 11}, {5, 11}, {6, 10}, {7, 11}, {8, 11}, {9, 11}, {10, 11}, {11, 10}};
+	sequence input = {
+						{1, 10}, {2, 11}, {3, 11}, {4, 11},
+						{5, 11}, {6, 10}, {7, 11}, {8, 11},
+						{9, 11}, {10, 11}, {11, 10}
+					};
+	std::list<std::pair<x, y>> input_list = {
+											{1, 10}, {2, 11}, {3, 11},
+											{4, 11}, {5, 11}, {6, 10},
+											{7, 11}, {8, 11}, {9, 11},
+											{10, 11}, {11, 10}
+											};
 	const int test_amount = 500000;
 	{
 		LOG_DURATION("list filtering time count");
